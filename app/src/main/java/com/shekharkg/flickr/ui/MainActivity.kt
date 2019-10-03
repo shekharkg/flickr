@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.shekharkg.flickr.R
+import com.shekharkg.flickr.adapter.PhotosAdapter
 import com.shekharkg.flickr.utils.InjectorUtils
 import com.shekharkg.flickr.utils.NetworkState
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initView() {
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = PhotosAdapter()
     }
 
     private fun initObservers() {
