@@ -47,6 +47,10 @@ class Repository(
     private val photos: LiveData<List<FlickrEntity>>? = db?.flickeDao()?.getAll()
     private val networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
+    init {
+        if (photos?.value.isNullOrEmpty()) updateFromService()
+    }
+
     fun getPhotos(): LiveData<List<FlickrEntity>>? = photos
     fun getNetworkState(): MutableLiveData<NetworkState> = networkState
 

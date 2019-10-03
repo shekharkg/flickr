@@ -23,8 +23,8 @@ class MainViewModel(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val photos: LiveData<List<FlickrEntity>>? = repository.getPhotos()
-    private val networkState: LiveData<NetworkState> = repository.getNetworkState()
+    val photos: LiveData<List<FlickrEntity>>? = repository.getPhotos()
+    val networkState: LiveData<NetworkState> = repository.getNetworkState()
 
     fun refreshData() {
         repository.updateFromService()
