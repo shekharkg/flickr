@@ -13,13 +13,22 @@
 
 package com.shekharkg.flickr.repo
 
-class Repository {
+import android.app.Application
+import androidx.room.Room
+import com.shekharkg.flickr.repo.data.FlickrDatabase
+
+class Repository(application: Application) {
     companion object {
         @Volatile
         private var instance: Repository? = null
 
-        fun getInstance() = instance ?: synchronized(this) {
-            instance ?: Repository().also { instance = it }
+        fun getInstance(application: Application) = instance ?: synchronized(this) {
+            instance ?: Repository(application).also { instance = it }
         }
     }
+
+    var db: FlickrDatabase? =
+        Room.databaseBuilder(application, FlickrDatabase::class.java, "flickr_database")
+            .fallbackToDestructiveMigration().build()
+
 }
