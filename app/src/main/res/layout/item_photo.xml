@@ -11,14 +11,47 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:background="@color/light_gray"
+    android:paddingBottom="@dimen/dimen_extra_small_margin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TEST" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dimen_padding">
+
+            <TextView
+                android:id="@+id/titleTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toStartOf="@+id/photo"
+                android:layout_toLeftOf="@+id/photo"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_title" />
+
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="@dimen/dimen_photo"
+                android:layout_height="@dimen/dimen_photo"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/desc_photo" />
+
+            <ProgressBar
+                android:id="@+id/photoLoader"
+                android:layout_width="@dimen/dimen_small_progressbar"
+                android:layout_height="@dimen/dimen_small_progressbar"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/dimen_small_progressbar_margin" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

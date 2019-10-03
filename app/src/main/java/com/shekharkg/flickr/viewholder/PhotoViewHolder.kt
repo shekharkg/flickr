@@ -16,12 +16,19 @@ package com.shekharkg.flickr.viewholder
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.shekharkg.flickr.repo.data.FlickrEntity
+import kotlinx.android.synthetic.main.item_photo.view.*
 
-class PhotoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class PhotoViewHolder(
+    view: View
+) : RecyclerView.ViewHolder(view) {
 
 
     fun bind(photo: FlickrEntity) {
-//        TODO: handle photo
+        itemView.titleTV.text = photo.title ?: ""
+
+        itemView.photoLoader.visibility = View.VISIBLE
+
+
     }
 
 }

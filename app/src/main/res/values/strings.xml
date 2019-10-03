@@ -15,4 +15,5 @@
     <string name="app_name">flickr</string>
     <string name="text_something_went_wrong">Some thing went wrong!</string>
     <string name="action_retry">Retry</string>
+    <string name="desc_photo">photo</string>
 </resources>
