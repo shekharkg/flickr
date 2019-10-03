@@ -15,11 +15,13 @@ package com.shekharkg.flickr.repo
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import com.shekharkg.flickr.bean.FlickrResponse
 import com.shekharkg.flickr.repo.data.FlickrDatabase
 import com.shekharkg.flickr.repo.data.FlickrEntity
 import com.shekharkg.flickr.rest.ApiClient
+import com.shekharkg.flickr.utils.NetworkState
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,20 +42,25 @@ class Repository(application: Application) {
 
 
     private val photos: LiveData<List<FlickrEntity>>? = db?.flickeDao()?.getAll()
+    private val networkState: MutableLiveData<NetworkState> = MutableLiveData()
 
     fun getPhotos(): LiveData<List<FlickrEntity>>? = photos
+    fun getNetworkState(): MutableLiveData<NetworkState> = networkState
 
 
     fun updateFromService() {
+        networkState.value = NetworkState.LOADING
+
         ApiClient.getApiInterface().getPhotos().enqueue(object : Callback<FlickrResponse> {
             override fun onFailure(call: Call<FlickrResponse>?, t: Throwable?) {
-
+                networkState.value = NetworkState.FAILED
             }
 
             override fun onResponse(
                 call: Call<FlickrResponse>?,
                 response: Response<FlickrResponse>?
             ) {
+                networkState.value = NetworkState.SUCCESS
                 response?.isSuccessful?.let {
                     response.body()?.photos?.photo?.let {
                         for (photo in it)

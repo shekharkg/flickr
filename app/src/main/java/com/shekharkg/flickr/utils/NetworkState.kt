@@ -11,19 +11,19 @@
  * limitations under the License.
  */
 
-package com.shekharkg.flickr.ui
+package com.shekharkg.flickr.utils
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import com.shekharkg.flickr.repo.Repository
-import com.shekharkg.flickr.repo.data.FlickrEntity
-import com.shekharkg.flickr.utils.NetworkState
+class NetworkState(val status: Status, val msg: String?) {
 
-class MainViewModel(
-    private val repository: Repository
-) : ViewModel() {
+    enum class Status {
+        RUNNING,
+        SUCCESS,
+        FAILED
+    }
 
-    private val photos: LiveData<List<FlickrEntity>>? = repository.getPhotos()
-    private val networkState: LiveData<NetworkState> = repository.getNetworkState()
-
+    companion object {
+        val SUCCESS: NetworkState = NetworkState(Status.SUCCESS, "Success...")
+        val LOADING: NetworkState = NetworkState(Status.RUNNING, "Running...")
+        val FAILED: NetworkState = NetworkState(Status.FAILED, "Not internet connection!")
+    }
 }
