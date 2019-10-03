@@ -15,8 +15,12 @@ package com.shekharkg.flickr.viewholder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.shekharkg.flickr.R
 import com.shekharkg.flickr.repo.data.FlickrEntity
+import com.squareup.picasso.Callback
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_photo.view.*
+import java.lang.Exception
 
 class PhotoViewHolder(
     view: View
@@ -28,7 +32,17 @@ class PhotoViewHolder(
 
         itemView.photoLoader.visibility = View.VISIBLE
 
+        Picasso.get().load(photo.url).into(itemView.photo, object : Callback {
+            override fun onSuccess() {
+                itemView.photoLoader.visibility = View.GONE
+            }
 
+            override fun onError(e: Exception?) {
+                itemView.photoLoader.visibility = View.GONE
+                Picasso.get().load(R.mipmap.ic_launcher_round).into(itemView.photo)
+            }
+
+        })
     }
 
 }

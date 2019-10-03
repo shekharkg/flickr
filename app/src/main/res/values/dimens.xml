@@ -13,14 +13,14 @@
   -->
 
 <resources>
+    <dimen name="dimen_extra_small_margin">2dp</dimen>
     <dimen name="dimen_small_margin">8dp</dimen>
     <dimen name="dimen_padding">8dp</dimen>
+    <dimen name="dimen_small_progressbar">16dp</dimen>
+    <dimen name="dimen_small_progressbar_margin">30dp</dimen>
     <dimen name="dimen_progressbar">80dp</dimen>
     <dimen name="dimen_photo">80dp</dimen>
 
     <dimen name="text_title">18sp</dimen>
     <dimen name="text_header">22sp</dimen>
-    <dimen name="dimen_small_progressbar">32dp</dimen>
-    <dimen name="dimen_small_progressbar_margin">20dp</dimen>
-    <dimen name="dimen_extra_small_margin">2dp</dimen>
 </resources>
