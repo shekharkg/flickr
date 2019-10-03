@@ -11,19 +11,23 @@
  * limitations under the License.
  */
 
-package com.shekharkg.flickr.repo.data
+package com.shekharkg.flickr.rest
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.shekharkg.flickr.bean.FlickrResponse
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
 
-@Entity
-data class FlickrEntity(
-    @PrimaryKey val uid: Int,
-    @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "url_q") val url: String?
-) {
-    override fun toString(): String {
-        return "{title: $title, url: $url}"
-    }
+interface ApiInterface {
+
+    @GET("/rest/")
+    fun getPhotos(
+        @Query("method") method: String = "flickr.photos.search",
+        @Query("api_key") apiKey: String = "641c87bd78e54920b01e9a5d8bb726d7",
+        @Query("format") format: String = "json",
+        @Query("nojsoncallback") nojsoncallback: Int = 1,
+        @Query("text") text: String = "shirts",
+        @Query("extras") extras: String = "url_q"
+    ): Call<FlickrResponse>
+
 }

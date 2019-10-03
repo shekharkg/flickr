@@ -11,19 +11,28 @@
  * limitations under the License.
  */
 
-package com.shekharkg.flickr.repo.data
+package com.shekharkg.flickr.bean
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.shekharkg.flickr.repo.data.FlickrEntity
 
-@Entity
-data class FlickrEntity(
-    @PrimaryKey val uid: Int,
-    @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "url_q") val url: String?
+data class FlickrResponse(
+    var photos: Photos?,
+    var stat: String?
 ) {
+
     override fun toString(): String {
-        return "{title: $title, url: $url}"
+        return "{photos ${photos.toString()}, stat: $stat}"
+    }
+
+    data class Photos(
+        var page: Int?,
+        var pages: Int?,
+        var perpage: Int?,
+        var total: Int?,
+        var photo: List<FlickrEntity>?
+    ) {
+        override fun toString(): String {
+            return "{page: $page, pages: $pages, perpage: $perpage, total: $total, photoCount: ${photo?.size}}"
+        }
     }
 }
