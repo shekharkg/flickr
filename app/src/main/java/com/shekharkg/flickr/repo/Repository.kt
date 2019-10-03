@@ -16,8 +16,13 @@ package com.shekharkg.flickr.repo
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.room.Room
+import com.shekharkg.flickr.bean.FlickrResponse
 import com.shekharkg.flickr.repo.data.FlickrDatabase
 import com.shekharkg.flickr.repo.data.FlickrEntity
+import com.shekharkg.flickr.rest.ApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Repository(application: Application) {
     companion object {
@@ -37,5 +42,27 @@ class Repository(application: Application) {
     private val photos: LiveData<List<FlickrEntity>>? = db?.flickeDao()?.getAll()
 
     fun getPhotos(): LiveData<List<FlickrEntity>>? = photos
+
+
+    fun updateFromService() {
+        ApiClient.getApiInterface().getPhotos().enqueue(object : Callback<FlickrResponse> {
+            override fun onFailure(call: Call<FlickrResponse>?, t: Throwable?) {
+
+            }
+
+            override fun onResponse(
+                call: Call<FlickrResponse>?,
+                response: Response<FlickrResponse>?
+            ) {
+                response?.isSuccessful?.let {
+                    response.body()?.photos?.photo?.let {
+                        for (photo in it)
+                            db?.flickeDao()?.insertAll(photo)
+                    }
+                }
+            }
+
+        })
+    }
 
 }
