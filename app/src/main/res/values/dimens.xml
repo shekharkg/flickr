@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Copyright 2019 ShekharKG. All rights reserved.
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +13,7 @@
   -->
 
 <resources>
-    <string name="app_name">flickr</string>
-    <string name="text_something_went_wrong">Some thing went wrong!</string>
-    <string name="action_retry">Retry</string>
+    <dimen name="dimen_progressbar">80dp</dimen>
+    <dimen name="text_header">22sp</dimen>
+    <dimen name="dimen_small_margin">8dp</dimen>
 </resources>
