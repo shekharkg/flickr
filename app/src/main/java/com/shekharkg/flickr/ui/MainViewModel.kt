@@ -13,11 +13,15 @@
 
 package com.shekharkg.flickr.ui
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shekharkg.flickr.repo.Repository
+import com.shekharkg.flickr.repo.data.FlickrEntity
 
 class MainViewModel(
     private val repository: Repository
 ) : ViewModel() {
-    
+
+    private val photos: LiveData<List<FlickrEntity>>? = repository.getPhotos()
+
 }

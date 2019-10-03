@@ -14,8 +14,10 @@
 package com.shekharkg.flickr.repo
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.shekharkg.flickr.repo.data.FlickrDatabase
+import com.shekharkg.flickr.repo.data.FlickrEntity
 
 class Repository(application: Application) {
     companion object {
@@ -27,8 +29,13 @@ class Repository(application: Application) {
         }
     }
 
-    var db: FlickrDatabase? =
+    private val db: FlickrDatabase? =
         Room.databaseBuilder(application, FlickrDatabase::class.java, "flickr_database")
             .fallbackToDestructiveMigration().build()
+
+
+    private val photos: LiveData<List<FlickrEntity>>? = db?.flickeDao()?.getAll()
+
+    fun getPhotos(): LiveData<List<FlickrEntity>>? = photos
 
 }
