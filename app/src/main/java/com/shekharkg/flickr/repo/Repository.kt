@@ -72,6 +72,8 @@ class Repository(
                     response?.isSuccessful?.let {
                         response.body()?.photos?.photo?.let {
                             Thread {
+                                if (it.isNotEmpty()) db?.flickeDao()?.nukeTable()
+
                                 for (photo in it)
                                     db?.flickeDao()?.insertAll(photo)
                             }.start()

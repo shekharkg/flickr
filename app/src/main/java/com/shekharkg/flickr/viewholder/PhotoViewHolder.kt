@@ -32,7 +32,7 @@ class PhotoViewHolder(
 
         itemView.photoLoader.visibility = View.VISIBLE
 
-        Picasso.get().load(photo.url).into(itemView.photo, object : Callback {
+        Picasso.get().load(photo.url_q).into(itemView.photo, object : Callback {
             override fun onSuccess() {
                 itemView.photoLoader.visibility = View.GONE
             }

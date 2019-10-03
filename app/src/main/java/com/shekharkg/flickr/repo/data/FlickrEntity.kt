@@ -21,9 +21,9 @@ import androidx.room.PrimaryKey
 data class FlickrEntity(
     @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "url_q") val url: String?
+    @ColumnInfo(name = "url_q") val url_q: String?
 ) {
     override fun toString(): String {
-        return "{title: $title, url: $url}"
+        return "{title: $title, url: $url_q}"
     }
 }
