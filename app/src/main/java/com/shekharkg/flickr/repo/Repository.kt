@@ -54,29 +54,27 @@ class Repository(
     fun updateFromService() {
         networkState.value = NetworkState.LOADING
 
-        if (!Utils.isNetworkConnected(application)) {
-            networkState.value = NetworkState.FAILED
-        }
+        if (Utils.isNetworkConnected(application)) {
+            ApiClient.getApiInterface().getPhotos().enqueue(object : Callback<FlickrResponse> {
+                override fun onFailure(call: Call<FlickrResponse>?, t: Throwable?) {
+                    networkState.value = NetworkState(NetworkState.Status.FAILED, t?.message)
+                }
 
-        ApiClient.getApiInterface().getPhotos().enqueue(object : Callback<FlickrResponse> {
-            override fun onFailure(call: Call<FlickrResponse>?, t: Throwable?) {
-                networkState.value = NetworkState(NetworkState.Status.FAILED, t?.message)
-            }
-
-            override fun onResponse(
-                call: Call<FlickrResponse>?,
-                response: Response<FlickrResponse>?
-            ) {
-                networkState.value = NetworkState.SUCCESS
-                response?.isSuccessful?.let {
-                    response.body()?.photos?.photo?.let {
-                        for (photo in it)
-                            db?.flickeDao()?.insertAll(photo)
+                override fun onResponse(
+                    call: Call<FlickrResponse>?,
+                    response: Response<FlickrResponse>?
+                ) {
+                    networkState.value = NetworkState.SUCCESS
+                    response?.isSuccessful?.let {
+                        response.body()?.photos?.photo?.let {
+                            for (photo in it)
+                                db?.flickeDao()?.insertAll(photo)
+                        }
                     }
                 }
-            }
 
-        })
+            })
+        } else networkState.value = NetworkState.FAILED
     }
 
 }
