@@ -20,7 +20,7 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("/rest/")
+    @GET("/services/rest/")
     fun getPhotos(
         @Query("method") method: String = "flickr.photos.search",
         @Query("api_key") apiKey: String = "641c87bd78e54920b01e9a5d8bb726d7",

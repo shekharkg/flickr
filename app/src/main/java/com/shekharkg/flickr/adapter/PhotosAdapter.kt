@@ -21,6 +21,9 @@ import com.shekharkg.flickr.repo.data.FlickrEntity
 import com.shekharkg.flickr.viewholder.PhotoViewHolder
 
 class PhotosAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
+
+    var photos: List<FlickrEntity> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         return PhotoViewHolder(
             LayoutInflater.from(parent.context).inflate(
@@ -31,11 +34,11 @@ class PhotosAdapter : RecyclerView.Adapter<PhotoViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return photos.size
     }
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        holder.bind(FlickrEntity(1, "TEST_TITLE", "TEST_URL"))
+        holder.bind(photos[position])
     }
 
 

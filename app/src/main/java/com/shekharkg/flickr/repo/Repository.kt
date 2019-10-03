@@ -71,8 +71,10 @@ class Repository(
                     networkState.value = NetworkState.SUCCESS
                     response?.isSuccessful?.let {
                         response.body()?.photos?.photo?.let {
-                            for (photo in it)
-                                db?.flickeDao()?.insertAll(photo)
+                            Thread {
+                                for (photo in it)
+                                    db?.flickeDao()?.insertAll(photo)
+                            }.start()
                         }
                     }
                 }

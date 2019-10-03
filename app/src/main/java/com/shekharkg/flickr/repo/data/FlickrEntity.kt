@@ -19,7 +19,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class FlickrEntity(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey(autoGenerate = true) val uid: Int,
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "url_q") val url: String?
 ) {
