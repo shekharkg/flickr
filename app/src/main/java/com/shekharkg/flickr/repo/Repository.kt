@@ -22,11 +22,14 @@ import com.shekharkg.flickr.repo.data.FlickrDatabase
 import com.shekharkg.flickr.repo.data.FlickrEntity
 import com.shekharkg.flickr.rest.ApiClient
 import com.shekharkg.flickr.utils.NetworkState
+import com.shekharkg.flickr.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Repository(application: Application) {
+class Repository(
+    private val application: Application
+) {
     companion object {
         @Volatile
         private var instance: Repository? = null
@@ -51,9 +54,13 @@ class Repository(application: Application) {
     fun updateFromService() {
         networkState.value = NetworkState.LOADING
 
+        if (!Utils.isNetworkConnected(application)) {
+            networkState.value = NetworkState.FAILED
+        }
+
         ApiClient.getApiInterface().getPhotos().enqueue(object : Callback<FlickrResponse> {
             override fun onFailure(call: Call<FlickrResponse>?, t: Throwable?) {
-                networkState.value = NetworkState.FAILED
+                networkState.value = NetworkState(NetworkState.Status.FAILED, t?.message)
             }
 
             override fun onResponse(
