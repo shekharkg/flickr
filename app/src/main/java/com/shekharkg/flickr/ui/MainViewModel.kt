@@ -14,7 +14,7 @@
 package com.shekharkg.flickr.ui
 
 import androidx.lifecycle.ViewModel
-import com.shekharkg.flickr.data.Repository
+import com.shekharkg.flickr.repo.Repository
 
 class MainViewModel(
     private val repository: Repository

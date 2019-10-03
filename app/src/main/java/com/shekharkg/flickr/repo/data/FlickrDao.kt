@@ -11,16 +11,22 @@
  * limitations under the License.
  */
 
-package com.shekharkg.flickr.ui
+package com.shekharkg.flickr.repo.data
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.shekharkg.flickr.repo.Repository
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
 
-class ViewModelFactory(
-    private val repository: Repository
-) : ViewModelProvider.NewInstanceFactory() {
+@Dao
+interface FlickrDao {
 
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(repository) as T
+    @Query("SELECT * FROM flickrentity")
+    fun getAll(): LiveData<List<FlickrEntity>>
+
+    @Insert
+    fun insertAll(vararg flicr: FlickrEntity)
+
+    @Query("DELETE FROM flickrentity")
+    fun nukeTable()
 }

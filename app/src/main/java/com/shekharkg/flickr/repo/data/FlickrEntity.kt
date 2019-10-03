@@ -11,15 +11,15 @@
  * limitations under the License.
  */
 
-package com.shekharkg.flickr.data
+package com.shekharkg.flickr.repo.data
 
-class Repository {
-    companion object {
-        @Volatile
-        private var instance: Repository? = null
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-        fun getInstance() = instance ?: synchronized(this) {
-            instance ?: Repository().also { instance = it }
-        }
-    }
-}
+@Entity
+data class FlickrEntity(
+    @PrimaryKey val uid: Int,
+    @ColumnInfo(name = "title") val title: String?,
+    @ColumnInfo(name = "url_q") val url: String?
+)

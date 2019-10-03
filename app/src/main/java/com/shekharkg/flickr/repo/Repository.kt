@@ -11,16 +11,15 @@
  * limitations under the License.
  */
 
-package com.shekharkg.flickr.ui
+package com.shekharkg.flickr.repo
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.shekharkg.flickr.repo.Repository
+class Repository {
+    companion object {
+        @Volatile
+        private var instance: Repository? = null
 
-class ViewModelFactory(
-    private val repository: Repository
-) : ViewModelProvider.NewInstanceFactory() {
-
-    @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T = MainViewModel(repository) as T
+        fun getInstance() = instance ?: synchronized(this) {
+            instance ?: Repository().also { instance = it }
+        }
+    }
 }
